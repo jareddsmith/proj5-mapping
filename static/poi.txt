@@ -1,0 +1,3 @@
+Autzen Stadium,44.0583,-123.0686
+Matthew Knight Arena,44.045,-123.066
+Spencer Butte,43.9836,-123.0967
