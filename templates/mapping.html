@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset=utf-8 />
-        <title>Reverse geocoding</title>
+        <title>Project 5: Mapping</title>
         <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
         
         <!-- Load Leaflet from CDN-->
@@ -30,14 +30,28 @@
                             maxZoom: 18,
                             id: 'mapbox.streets',
                             }).addTo(map);
+
+                var locations = {{session.locations|safe}}
+                for (location in locations){
+                    loc = locations[location]
+                    
+                    name = loc[0]
+                    lat = loc[1]
+                    long = loc[2]
+                    
+                    var marker = L.marker([lat,long]).addTo(map);
+                    marker.bindPopup(name).openPopup();
+            
+                }
+            
+                var geocodeService = L.esri.Geocoding.geocodeService();
                             
-                            var geocodeService = L.esri.Geocoding.geocodeService();
-                            
-                            map.on('click', function(e) {
-                                   geocodeService.reverse().latlng(e.latlng).run(function(error, result) {
-                                                                                 L.marker(result.latlng).addTo(map).bindPopup(result.address.Match_addr).openPopup();
-                                                                                 });
-                                   });
+                map.on('click', function(e) {
+                    geocodeService.reverse().latlng(e.latlng).run(function(error, result) {
+                            L.marker(result.latlng).addTo(map).bindPopup(result.address.Match_addr).openPopup();
+                    });
+                });
+                
                 </script>
             
     </body>
