@@ -37,17 +37,17 @@ def index():
     locations = []
     
     for location in file:
-        loc = location.split(",")
+        loc = location.strip().split(",")
         loc[1] = float(loc[1])
         loc[2] = float(loc[2])
-        
         locations.append(loc)
     
     #Locations are nested in arrays
-    #i.e. locations[0][i] (locations[location][data])
+    #i.e. locations[0][i] (locations[location][name, lat, long])
 
     flask.session['locations'] = locations
-    
+    app.logger.debug("About to render template")
+    app.logger.debug("Here comes the HTML!\n{}".format(flask.render_template('mapping.html')))
     return flask.render_template('mapping.html')
 
 ###################

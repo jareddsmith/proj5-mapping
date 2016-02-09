@@ -23,7 +23,6 @@
             <div id="map"></div>
             
             <script>
-                console.log("About to create the map")
                 var map = L.map('map').setView([44.045, -123.075], 13);
                 
                 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamFyZWRkc21pdGgiLCJhIjoiY2lrN2lkcHg3MDFsY2hnbTI0ZXJ6MXh0bCJ9.0mfx-AGf1AYDdUlJ0ltmGw', {
@@ -31,22 +30,7 @@
                             maxZoom: 18,
                             id: 'mapbox.streets',
                             }).addTo(map);
-                console.log("Created the map and tiles, about to place the pins")
-                var locations = {{session.locations|safe}}
-                console.log("Locations loaded, they are " + locations)
-                for (var i =0; i < locations.length;  ++i){
-                    console.log("In the loop")
-                    var loc = locations[i];
-                    
-                    var name = loc[0];
-                    var lat = loc[1];
-                    var long = loc[2];
-                    console.log("Accessed the three parts of loc")
-                    var marker = L.marker([lat,long]).addTo(map);
-                    marker.bindPopup(name).openPopup();
-                    console.log("Placed a pin")
             
-                }
             
                 var geocodeService = L.esri.Geocoding.geocodeService();
                             
